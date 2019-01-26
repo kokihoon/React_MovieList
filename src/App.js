@@ -30,20 +30,33 @@ const movies = [
 ]
 class App extends Component {
 
-  // Render: componentWillMount() -> render() -> componentDidmount()
-  // Update componentWillReceiveProps() -> shouldComponentUpdate() -> componentWillUpdate() -> render() -> component
+  // Render: componentWillMount() -> render() -> componentDidMount()
+  // Update componentWillReceiveProps() -> shouldComponentUpdate()  == true-> componentWillUpdate() -> render() -> componentDidUpdate()
 
-  componentWillMount() {
-    console.log("will mount")
+  // componentWillMount() {
+  //   console.log("will mount")
+  // }
+
+  // componentDidMount() {
+  //   console.log("did mount")
+  // }
+
+  state = {
+    greeting: 'Hello!'
   }
-
   componentDidMount() {
-    console.log("did mount")
+    setTimeout(() => {
+      // this.state.greeting = 'something' // 이렇게 업데이트 하면 안됨.
+      this.setState({
+        greeting: 'Hello again!'
+      })
+    }, 5000)
   }
   render() {
-    console.log("did render")
+    // console.log("did render")
     return (
       <div className="App">
+        {this.state.greeting}
         {movies.map( (movie, index) => {
           return <Movie title={movie.title} poster={movie.poster} key={index} />
         })}
